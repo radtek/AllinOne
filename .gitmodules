@@ -19,3 +19,6 @@
 [submodule "rsyncAgent"]
 	path = rsyncAgent
 	url = https://github.com/anyboo/rsyncAgent.git
+[submodule "RSEvent"]
+	path = RSEvent
+	url = https://github.com/anyboo/RSCertSafeAsync.git
