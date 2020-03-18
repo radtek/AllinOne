@@ -102,7 +102,7 @@ Source: "..\bin\paho-mqtt3as.dll"; DestDir: "{app}";
 Source: "..\bin\lua53.dll"; DestDir: "{app}";
 
 [Icons]
-Name: "{group}\{cm:UninstallProgram,{#AppName} {#AppVersion}}"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}";
 
 
 [Run]

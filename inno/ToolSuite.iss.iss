@@ -118,8 +118,8 @@ Source: "..\bin\paho-mqtt3as.dll"; DestDir: "{app}";
 Source: "..\bin\lua53.dll"; DestDir: "{app}";
 
 [Icons]
-Name: "{group}\{cm:UninstallProgram,{#AppName} {#AppVersion}}"; Filename: "{uninstallexe}"
-Name: "{group}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html"
+Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}";
+Name: "{group}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html";
 Name: "{commondesktop}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html";
 
 [Tasks]

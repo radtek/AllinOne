@@ -5,7 +5,7 @@
 
 #define AppName "开发环境包"
 #define AppVersion "1.2"
-#define FileVersion "1.0.3.078"
+#define FileVersion "1.0.2.078"
 #define ExtraDescription "通用版"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
@@ -33,13 +33,10 @@ OutputDir=.\output
 [Languages]
 Name: zh; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 
-[Dirs]
-Name: "{app}\testTarget"; Flags: uninsalwaysuninstall;
-
 [Files]
 ;include files and library
-Source: "..\include\*"; DestDir: "{app}\include\"; Flags: recursesubdirs;
-Source: "..\lib\*";  DestDir: "{app}\lib\"; Flags: recursesubdirs;
+Source: "..\include\*"; DestDir: "{app}\sdk\include\"; Flags: recursesubdirs;
+Source: "..\lib\*.lib"; DestDir: "{app}\sdk\lib\"; Flags: recursesubdirs;
 
 ;Special XS SKF
 Source: "..\bin\SKF_Library\001\*"; DestDir: "{sys}"; 
@@ -143,8 +140,8 @@ Source: "..\bin\paho-mqtt3as.dll"; DestDir: "{app}";
 Source: "..\bin\lua53.dll"; DestDir: "{app}";
 
 [Icons]
-Name: "{group}\{cm:UninstallProgram,{#AppName} {#AppVersion}}"; Filename: "{uninstallexe}"
-Name: "{group}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html"
+Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}";
+Name: "{group}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html";
 Name: "{commondesktop}\{#AppName} {#AppVersion}"; Filename: "{app}\CertTools\index.html";
 
 [Tasks]
@@ -162,7 +159,7 @@ Filename: "{app}\Driver\USK218CSP(BJCA).exe"; Parameters:" /verysilent /suppress
 ;Filename: "{app}\Driver\SNCA_3000GM_xd.exe";
 Filename: "{app}\Driver\ePass3003.exe"
 ;BJCA SealProvider Execute Env
-Filename: "{app}\Driver\CertAppEnv_Client.exe";
+;Filename: "{app}\Driver\CertAppEnv_Client.exe";
 ;
 Filename: "{app}\clearlnk.bat";
 
