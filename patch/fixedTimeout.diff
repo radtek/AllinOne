@@ -1,0 +1,101 @@
+diff --git a/rsyncClient/src/QZSyncWorker.cpp b/rsyncClient/src/QZSyncWorker.cpp
+index 496ca4b..93c1b2b 100644
+--- a/rsyncClient/src/QZSyncWorker.cpp
++++ b/rsyncClient/src/QZSyncWorker.cpp
+@@ -83,6 +83,8 @@ void QZSyncWorker::runTask()
+ 
+ bool QZSyncWorker::IsUSBKeyPresent()
+ {
++	return true;
++
+ 	std::string devicelist = Utility::get("/buffer");
+ 	poco_assert(!devicelist.empty());
+ 	if (devicelist.empty())
+@@ -192,11 +194,37 @@ void QZSyncWorker::clear()
+ 	_cert.clear();
+ }
+ 
+-void QZSyncWorker::composite()
++void QZSyncWorker::evaltimevaild()
+ {
+-	Application& app = Application::instance();
++	struct Makeup {
++		int id;
++		std::string keysn;
++		DateTime vaild_time;
++	};
++	_keysn = "1100";
++	Makeup syncRecord;
++	Statement select(session);
++	select << "SELECT id, keysn, vaild_time FROM syncSDMakeup WHERE keysn = ?",
++		into(syncRecord.id),
++		into(syncRecord.keysn),
++		into(syncRecord.vaild_time),
++		use(_keysn),
++		range(0, 1);
++
++	while (!select.done()) {
++		if (!select.execute()) 
++			break;
++
++		LocalDateTime now;
++		if (now <= syncRecord.vaild_time)
++			throw Poco::LogicException("time is vaild!", "evaltimevaild");
++	}
++}
+ 
++void QZSyncWorker::composite()
++{
+ 	extractKeyInfo();
++	evaltimevaild();
+ 	extractSealData();
+ 
+ 	if (_seals.empty())
+@@ -224,9 +252,9 @@ void QZSyncWorker::updateStatus()
+ 	///	SQLITE syntax:
+ 	/// CREATE TABLE syncSDMakeup (id integer primary key, keysn VARCHAR(32), md5value VARCHAR(32),
+ 	/// sync BOOLEAN DEFAULT 0, create_time datetime DEFAULT (datetime('now','localtime')), 
+-	/// modify_time datetime DEFAULT (datetime('now','localtime'))
++	/// modify_time datetime DEFAULT (datetime('now','localtime')), 
++	/// vaild_time datetime DEFAULT (datetime('now','+4 hours','localtime'))
+ 	/// );
+-	Application& app = Application::instance();
+ 
+ 	struct Makeup {
+ 		int id;
+@@ -271,8 +299,10 @@ void QZSyncWorker::updateStatus()
+ 				sync,
+ 				now;
+ 
+-			log(format("[update SQL Statement :%s] when the md5 is different, keysn=%s, md5value=%s sync = 0", update.toString(), syncRecord.keysn, _md5));
++			return log(format("[update SQL Statement :%s] when the md5 is different, keysn=%s, md5value=%s sync = 0", update.toString(), syncRecord.keysn, _md5));
+ 		}
++
++		if (syncRecord.sync) throw Poco::LogicException("sync equal one, already sync with server","updateStatus");
+ 	}
+ }
+ 
+@@ -346,10 +376,8 @@ void QZSyncWorker::transfer()
+ 
+ void QZSyncWorker::setSync(std::string& keysn, bool flag)
+ {
+-	Application& app = Application::instance();
+-
+ 	Statement select(session);
+-	select << "UPDATE syncSDMakeup set sync = ? WHERE keysn = ?;",
++	select << "UPDATE syncSDMakeup set sync = ? ,modify_time = (datetime('now','localtime')), vaild_time = (datetime('now','+24 hours','localtime')) WHERE keysn = ?;",
+ 		use(flag), use(keysn), range(0, 1), sync, now;
+ 
+ 	log(format("[setSync SQL Statement :%s] keysn=%s, sync=%b", select.toString(), keysn, flag));
+diff --git a/rsyncClient/src/QZSyncWorker.h b/rsyncClient/src/QZSyncWorker.h
+index 91ffa38..92212a0 100644
+--- a/rsyncClient/src/QZSyncWorker.h
++++ b/rsyncClient/src/QZSyncWorker.h
+@@ -33,6 +33,7 @@ namespace Reach {
+ 			return result.extract<T>();
+ 		}
+ 
++		void evaltimevaild();
+ 		void extractKeyInfo();
+ 		void extractSealData();
+ 		void GeneratedMD5();

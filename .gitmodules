@@ -1,0 +1,21 @@
+[submodule "RSCertSafe"]
+	path = RSCertSafe
+	url = https://github.com/anyboo/RSCertSafe.git
+[submodule "RData"]
+	path = RData
+	url = https://github.com/anyboo/RData.git
+[submodule "UKEYMonitor"]
+	path = UKEYMonitor
+	url = https://github.com/anyboo/UKEYMonitor.git
+[submodule "rsyncDaemon"]
+	path = rsyncDaemon
+	url = https://github.com/anyboo/rsyncDaemon.git
+[submodule "rsyncClient"]
+	path = rsyncClient
+	url = https://github.com/anyboo/QZSyncWorker.git
+[submodule "libqrencode"]
+	path = libqrencode
+	url = https://github.com/anyboo/libqrencode_win32.git
+[submodule "rsyncAgent"]
+	path = rsyncAgent
+	url = https://github.com/anyboo/rsyncAgent.git

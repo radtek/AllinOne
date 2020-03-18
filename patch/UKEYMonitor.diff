@@ -1,0 +1,29 @@
+ UKEYMonitor/src/DeviceFilter.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/UKEYMonitor/src/DeviceFilter.h b/UKEYMonitor/src/DeviceFilter.h
+index ba7e81d..c3dd521 100644
+--- a/UKEYMonitor/src/DeviceFilter.h
++++ b/UKEYMonitor/src/DeviceFilter.h
+@@ -19,7 +19,8 @@ namespace Reach {
+ 		void loadConfigure();
+ 		void enqueue();
+ 		bool isLegelDevice(const std::string& deivice_id);
+-
++		void startService(const std::string& name);
++		void stopService(const std::string& name);
+ 	private:
+ 		typedef Poco::Tuple<std::string, std::string, std::string, std::string, std::string, std::string> DeviceInfoType;
+ 		enum
+@@ -40,8 +41,9 @@ namespace Reach {
+ 		std::string _description;
+ 		std::string _enumerate;
+ 		std::string _engine;
++		std::string _lastChangedDevice;
+ 		bool _presented;
+ 		Poco::Dynamic::Array _data;
+-		void SQLitePath();
++		
+ 	};
+ }
+\ No newline at end of file
