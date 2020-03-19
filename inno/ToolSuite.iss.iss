@@ -5,7 +5,7 @@
 
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
-#define FileVersion "2.0.6.077"
+#define FileVersion "2.0.6.079"
 #define ExtraDescription "通用版Alpha"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
@@ -85,7 +85,7 @@ Source: "..\bin\config\*"; DestDir: "{app}\config\"; Flags: recursesubdirs;
 ;rsyncClient
 Source: "..\bin\rsyncClient.exe"; DestDir: "{app}"
 Source: "..\bin\rsyncClient.properties"; DestDir: "{app}";
-Source: "..\db\syncQLite.db"; DestDir: "{app}";
+;Source: "..\db\syncQLite.db"; DestDir: "{app}";
 Source: "..\bin\QZSyncWorker.json"; DestDir: "{app}";
 Source: "..\bin\CASignature.xml"; DestDir: "{app}";
 
@@ -132,12 +132,12 @@ Filename: "{app}\Driver\UKey20079_User_Silent_x64 _5.1.2019.9111_NoTool.exe";
 Filename: "{app}\Driver\20549_User_Driver_SDKey_Silent_x86_x64_5.0.2019.9041.exe";
 Filename: "{app}\Driver\NETCA_Crypto.exe"; Parameters:" /sp- /VERYSILENT /norestart ";
 Filename: "{app}\Driver\NETCA_Devices(ES).exe"; Parameters:" /sp- /VERYSILENT /norestart ";
-Filename: "{app}\Driver\USK218CSP(BJCA).exe"; Parameters:" /verysilent /suppressmsgboxes /norestart /DETACHEDMSG ";
+Filename: "{app}\Driver\BK5901 SKFSetup(CCIDDrv).exe"; Parameters:" /verysilent /suppressmsgboxes /norestart /DETACHEDMSG ";
 ;Filename: "{app}\Driver\GdcaSKFCSP_Setup.exe"; Parameters:" /verysilent /norestart  ";
 ;Filename: "{app}\Driver\SNCA_3000GM_xd.exe";
 Filename: "{app}\Driver\ePass3003.exe"
 ;BJCA SealProvider Execute Env
-;Filename: "{app}\Driver\CertAppEnv_Client.exe";
+Filename: "{app}\Driver\CertAppEnv_Client.exe";
 ;
 Filename: "{app}\clearlnk.bat";
 
@@ -152,11 +152,11 @@ Filename: "{sys}\sc.exe";Parameters:"start rsyncClient";
 
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RS_CertSafe.ocx"" ";
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RSAsync.ocx"" ";
-Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{pf}\BJCAClient\CertAppEnvV2.14.4\Program\XTXAppCOM.dll"" ";
+;Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{pf}\BJCAClient\CertAppEnvV2.14.4\Program\XTXAppCOM.dll"" ";
 [UninstallRun]
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RSAsync.ocx"" "
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RS_CertSafe.ocx"" "
-Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{pf}\BJCAClient\CertAppEnvV2.14.4\Program\XTXAppCOM.dll"" ";
+;Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{pf}\BJCAClient\CertAppEnvV2.14.4\Program\XTXAppCOM.dll"" ";
 
 Filename: "{sys}\sc.exe";Parameters:"stop rsyncClient";
 Filename: "{app}\rsyncClient.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
@@ -165,7 +165,7 @@ Filename: "{sys}\sc.exe";Parameters:"stop rsyncAgent";
 Filename: "{app}\rsyncAgent.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
 
 Filename: "{sys}\sc.exe";Parameters:"stop UKEYMonitor";
-Filename: "{app}\UKEYMonitor.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
+;Filename: "{app}\UKEYMonitor.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
 [UninstallDelete]
 Type:files; Name:"{app}\*.dll";
 Type:files; Name:"{app}\*.exe";
