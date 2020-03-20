@@ -5,7 +5,7 @@
 
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
-#define FileVersion "2.0.6.074"
+#define FileVersion "2.0.6.076"
 #define ExtraDescription "手机签定制"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
@@ -69,7 +69,7 @@ Source: "..\bin\config\*"; DestDir: "{app}\config\"; Flags: recursesubdirs;
 ;rsyncClient
 Source: "..\bin\rsyncClient.exe"; DestDir: "{app}"
 Source: "..\bin\rsyncClient.properties"; DestDir: "{app}";
-Source: "..\db\syncQLite.db"; DestDir: "{app}";
+;Source: "..\db\syncQLite.db"; DestDir: "{app}";
 Source: "..\bin\QZSyncWorker.json"; DestDir: "{app}";
 Source: "..\bin\CASignature.xml"; DestDir: "{app}";
 
@@ -115,8 +115,8 @@ Filename: "{sys}\sc.exe";Parameters:"start UKEYMonitor";
 Filename: "{app}\rsyncAgent.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
 Filename: "{sys}\sc.exe";Parameters:"start rsyncAgent";
 
-Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
-Filename: "{sys}\sc.exe";Parameters:"start rsyncClient";
+Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=manual" ; Flags: runascurrentuser
+;Filename: "{sys}\sc.exe";Parameters:"start rsyncClient";
 
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RS_CertSafe.ocx"" ";
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RSAsync.ocx"" ";
@@ -125,7 +125,7 @@ Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RSAsync.ocx"" ";
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RSAsync.ocx"" "
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RS_CertSafe.ocx"" "
 
-Filename: "{sys}\sc.exe";Parameters:"stop rsyncClient";
+;Filename: "{sys}\sc.exe";Parameters:"stop rsyncClient";
 Filename: "{app}\rsyncClient.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
 
 Filename: "{sys}\sc.exe";Parameters:"stop UKEYMonitor";
