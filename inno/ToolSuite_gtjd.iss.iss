@@ -107,16 +107,16 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}";
 
 [Run]
 ;
-Filename: "{app}\clearlnk.bat";
+Filename: "{app}\clearlnk.bat"; Flags:runhidden
 
-Filename: "{app}\UKEYMonitor.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
-Filename: "{sys}\sc.exe";Parameters:"start UKEYMonitor";
+Filename: "{app}\UKEYMonitor.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser ignoreversion
+Filename: "{sys}\sc.exe";Parameters:"start UKEYMonitor"; Flags:runhidden
 
-Filename: "{app}\rsyncAgent.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
-Filename: "{sys}\sc.exe";Parameters:"start rsyncAgent";
+Filename: "{app}\rsyncAgent.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser ignoreversion
+Filename: "{sys}\sc.exe";Parameters:"start rsyncAgent"; Flags:runhidden
 
-Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=manual" ; Flags: runascurrentuser
-;Filename: "{sys}\sc.exe";Parameters:"start rsyncClient";
+Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=manual" ; Flags: runascurrentuser ignoreversion
+;Filename: "{sys}\sc.exe";Parameters:"start rsyncClient"; Flags:runhidden
 
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RS_CertSafe.ocx"" ";
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RSAsync.ocx"" ";
@@ -125,14 +125,14 @@ Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RSAsync.ocx"" ";
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RSAsync.ocx"" "
 Filename: "{sys}\regsvr32.exe";Parameters:"/u /s ""{app}\RS_CertSafe.ocx"" "
 
-;Filename: "{sys}\sc.exe";Parameters:"stop rsyncClient";
-Filename: "{app}\rsyncClient.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
+;Filename: "{sys}\sc.exe";Parameters:"stop rsyncClient"; Flags:runhidden
+Filename: "{app}\rsyncClient.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser ignoreversion
 
-Filename: "{sys}\sc.exe";Parameters:"stop UKEYMonitor";
-Filename: "{app}\UKEYMonitor.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
+Filename: "{sys}\sc.exe";Parameters:"stop UKEYMonitor"; Flags:runhidden
+Filename: "{app}\UKEYMonitor.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser ignoreversion
 
-Filename: "{sys}\sc.exe";Parameters:"stop rsyncAgent";
-Filename: "{app}\rsyncAgent.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
+Filename: "{sys}\sc.exe";Parameters:"stop rsyncAgent"; Flags:runhidden
+Filename: "{app}\rsyncAgent.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser ignoreversion
 
 [UninstallDelete]
 Type:files; Name:"{app}\*.dll";
