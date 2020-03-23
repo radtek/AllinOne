@@ -1,0 +1,11 @@
+{
+  "head": {
+    "bizCode": "BIZ.GETAUTHCODEBYBUSSNAME",
+    "sysId": "b253fca87f6711e995aa005056a72395",
+    "unit": "RSYZ"
+  },
+  "body": "",
+  "bodyJson": {
+    "bussName": ""
+  }
+}
