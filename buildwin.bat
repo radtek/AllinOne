@@ -99,7 +99,6 @@ if "%BUILD_TOOL%"=="msbuild" (
   set CONFIGSW=/p:Configuration=
   set EXTRASW=/m
   set USEENV=/p:UseEnv=true
-  set PLATFORMSW=/p:Platform=%PLATFORM%
 )
 
 rem ACTION [build|rebuild|clean]
@@ -165,39 +164,43 @@ if %RELEASE_SHARED%==1    (echo release_shared)
 
 rem build for up to 4 levels deep
 for /f %%G in ('findstr /R "." components') do (
-	echo %%G
   if exist %%G (
     cd %%G
     for /f "tokens=1,2,3,4 delims=/" %%Q in ("%%G") do (
       set PROJECT_FILE=%%Q%PLATFORM_SUFFIX%_%VS_VERSION%.%VCPROJ_EXT%
-	  echo !PROJECT_FILE!
       if exist !PROJECT_FILE! (
-        ::call :build %%G
-        ::if ERRORLEVEL 1 goto buildfailed
+        call :build %%G
+        if ERRORLEVEL 1 goto buildfailed
       )
       set PROJECT_FILE=%%R%PLATFORM_SUFFIX%_%VS_VERSION%.%VCPROJ_EXT%
-	  echo !PROJECT_FILE!
       if exist !PROJECT_FILE! (
-        ::call :build %%G
-        ::if ERRORLEVEL 1 goto buildfailed
+        call :build %%G
+        if ERRORLEVEL 1 goto buildfailed
       )
       set PROJECT_FILE=%%S%PLATFORM_SUFFIX%_%VS_VERSION%.%VCPROJ_EXT%
-	 echo !PROJECT_FILE!
       if exist !PROJECT_FILE! (
-        ::call :build %%G
-        ::if ERRORLEVEL 1 goto buildfailed
+        call :build %%G
+        if ERRORLEVEL 1 goto buildfailed
       )
       set PROJECT_FILE=%%T%PLATFORM_SUFFIX%_%VS_VERSION%.%VCPROJ_EXT%
-	  echo !PROJECT_FILE!
       if exist !PROJECT_FILE! (
-        ::call :build %%G
-        ::if ERRORLEVEL 1 goto buildfailed
+        call :build %%G
+        if ERRORLEVEL 1 goto buildfailed
       )
     )
   )
-  echo %POCO_BASE%
   cd "%POCO_BASE%"
 )
+
+echo.
+echo ------------------------------------------------------------------------
+echo ------------------------------------------------------------------------
+echo ---- Build completed.
+echo ------------------------------------------------------------------------
+echo ------------------------------------------------------------------------
+echo.
+
+goto :EOF
 
 rem ////////////////////
 rem / build subroutine /
@@ -233,16 +236,6 @@ echo ------------------------------------------------------------------------
 echo.
 
 exit /b
-
-echo.
-echo ------------------------------------------------------------------------
-echo ------------------------------------------------------------------------
-echo ---- Build completed.
-echo ------------------------------------------------------------------------
-echo ------------------------------------------------------------------------
-echo.
-
-goto :EOF
 
 rem ////////////////
 rem / build failed /
