@@ -1,0 +1,8 @@
+RSAsync.pdb
+rsyncAgent.pdb
+rsyncClient.pdb
+rsyncData.pdb
+rsyncFJCA.pdb
+rsyncSOF.pdb
+RS_CertSafe.pdb
+UKEYMonitor.pdb

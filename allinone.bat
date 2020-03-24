@@ -7,6 +7,7 @@ setlocal EnableDelayedExpansion
 
 if "%1"=="clean" goto l_clean
 if "%1"=="copy" goto  mode
+if "%1"=="pdb" goto pdb
 
 :: set dll=rsyncData.dll;rsyncFJCA.dll;rsyncSOF.dll;
 :: set ocx=RS_CertSafe.ocx;RSAsync.ocx
@@ -27,7 +28,6 @@ if "%mode%"=="debug" (
 :l_copy
 
 set dest=.\bin
-
 REM RData
 echo #########################################################
 echo #                    Copy RData                         #
@@ -39,6 +39,10 @@ xcopy /y %OutDir%\rsyncData%postfix%.dll %dest%
 xcopy /y %OutDir%\rsyncFJCA%postfix%.dll %dest%
 xcopy /y %OutDir%\rsyncSOF%postfix%.dll %dest%
 
+xcopy /y %OutDir%\rsyncData%postfix%.pdb %dest%
+xcopy /y %OutDir%\rsyncFJCA%postfix%.pdb %dest%
+xcopy /y %OutDir%\rsyncSOF%postfix%.pdb %dest%
+
 echo #########################################################
 echo #                    Copy RSCertSafe                    #
 echo #########################################################
@@ -46,6 +50,7 @@ REM RSCertSafe
 set ProjectDir=.\RSCertSafe
 set OutDir=%ProjectDir%\bin
 xcopy /y %OutDir%\RS_CertSafe%postfix%.ocx %dest%
+xcopy /y %OutDir%\RS_CertSafe%postfix%.pdb %dest%
 REM regsvr32 %OutDir%\RS_CertSafed.ocx
 
 echo #########################################################
@@ -55,6 +60,7 @@ REM RSEvent
 set ProjectDir=.\RSEvent
 set OutDir=%ProjectDir%\bin
 xcopy /y %OutDir%\RSAsync%postfix%.ocx %dest%
+xcopy /y %OutDir%\RSAsync%postfix%.pdb %dest%
 REM regsvr32 %OutDir%\RSAsyncd.ocx
 
 echo #########################################################
@@ -67,6 +73,7 @@ xcopy /y %OutDir%\rsyncAgent%postfix%.exe %dest%
 xcopy /y %OutDir%\rsyncAgent.properties %dest%
 xcopy /y %OutDir%\rsyncAgent_gtjd.properties %dest%
 xcopy /y %OutDir%\Language.ini %dest%
+xcopy /y %OutDir%\rsyncAgent%postfix%.pdb %dest%
 REM .\rsyncAgentd.exe /registerService /startup=manual
 
 echo #########################################################
@@ -79,6 +86,7 @@ xcopy /y %OutDir%\rsyncClient%postfix%.exe %dest%
 xcopy /y %OutDir%\rsyncClient.properties %dest%
 xcopy /y %OutDir%\QZSyncWorker.json %dest%
 xcopy /y %OutDir%\CASignature.xml %dest%
+xcopy /y %OutDir%\rsyncClient%postfix%.pdb %dest%
 REM .\rsyncClientd.exe /registerService /startup=manual
 
 REM echo #########################################################
@@ -97,8 +105,12 @@ set OutDir=%ProjectDir%\bin
 xcopy /y %OutDir%\UKEYMonitor%postfix%.exe %dest%
 xcopy /y %OutDir%\UKEYMonitor.properties %dest%
 xcopy /y %OutDir%\devicelist.json %dest%
+xcopy /y %OutDir%\UKEYMonitor%postfix%.pdb %dest%
 REM .\UKEYMonitord.exe /registerService /startup=manual
-goto end
+echo #########################################################
+echo #                     Done                              #
+echo #########################################################
+goto :EOF
 
 :l_clean 
 echo #########################################################
@@ -118,6 +130,10 @@ for %%f in (rsyncData* rsyncFJCA* rsyncSOF*) do (
 		echo %cd%\%%~f
 		del /q %%f
 		)
+	if "%%~xf"==".pdb" (
+		echo %cd%\%%~f
+		del /q %%f
+		)
 	)
 	
 for %%f in (RS_CertSafe* RSAsync*) do (
@@ -125,10 +141,18 @@ for %%f in (RS_CertSafe* RSAsync*) do (
 			echo %cd%\%%~f
 			del /q %%f
 		)
+		if "%%~xf"==".pdb" (
+			echo %cd%\%%~f
+			del /q %%f
+		)
 	)
 	
 for %%f in (rsyncAgent* rsyncClient* UKEYMonitor*) do (
 		if "%%~xf"==".exe" (
+			echo %cd%\%%~f
+			del /q %%f
+		)
+		if "%%~xf"==".pdb" (
 			echo %cd%\%%~f
 			del /q %%f
 		)
@@ -140,55 +164,23 @@ echo .            Current Working Directory                  .
 echo              %cd%                               
 echo .........................................................
 
-:: echo ...
-:: if exist %dest%\rsyncData.dll (
-:: 	echo delete rsyncData
-:: 	del /q %dest%\rsyncData.dll 
-:: 	)
-:: 
-:: echo ......
-:: if exist %dest%\rsyncFJCA.dll (
-:: 	echo delete rsyncFJCA
-:: 	del /q %dest%\rsyncFJCA.dll 
-:: 	)
-:: 	
-:: echo .........
-:: if exist %dest%\rsyncSOF.dll (
-:: 	echo delete rsyncSOF
-:: 	del /q %dest%\rsyncSOF.dll 
-:: 	)
-:: 	
-:: echo ............
-:: if exist %dest%\RS_CertSafe.ocx (
-:: 	echo delete RS_CertSafe
-:: 	del /q %dest%\RS_CertSafe.ocx 
-:: )
-:: 
-:: echo ...............
-:: if exist %dest%\RSAsync.ocx (
-:: 	echo delete RSAsync
-:: 	del /q %dest%\RSAsync.ocx  
-:: )
-:: 
-:: echo ..................
-:: if exist %dest%\rsyncAgent.exe (
-:: 	echo delete rsyncAgent
-:: 	del /q %dest%\rsyncAgent.exe 
-:: )
-:: 
-:: echo .....................
-:: if exist %dest%\rsyncClient.exe (
-:: 	echo delete rsyncClient
-:: 	del /q %dest%\rsyncClient.exe 
-:: )
-:: 
-:: echo ........................
-:: if exist %dest%\UKEYMonitor.exe (
-:: 	echo delete UKEYMonitor
-:: 	del /q %dest%\UKEYMonitor.exe 
-:: )
+goto :EOF
 
-goto end
+:pdb
+set src=.\bin
+set cabName=symbol_release_%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%.cab
+echo %cabName%
+set BASE=%CD%
+cd .\bin
+makecab /v /F PDBList.txt /d maxdisksize=409600000
+xcopy /y .\disk1\1.cab %BASE%\pdb\
+del /q .\disk1\1.cab
+
+cd %BASE%\pdb\
+rename 1.cab %cabName%
+
+cd %BASE%
+goto :EOF
 
 :error
 echo #########################################################
@@ -197,10 +189,6 @@ echo #        command - copy / clean                         #
 echo #        mode - debug / release mode compiled           #
 echo #########################################################
 REM
-:end
-echo #########################################################
-echo #                     Done                              #
-echo #########################################################
 REM set list=SKF*.*;XSCipherService.*
 REM for %%f in (%dll% %exe% %ocx%) do echo %%~nf d %%~xf
 endlocal
