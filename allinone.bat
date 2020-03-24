@@ -89,12 +89,14 @@ xcopy /y %OutDir%\CASignature.xml %dest%
 xcopy /y %OutDir%\rsyncClient%postfix%.pdb %dest%
 REM .\rsyncClientd.exe /registerService /startup=manual
 
-REM echo #########################################################
-REM echo #                    Copy rsyncDaemon                   #
-REM echo #########################################################
-REM REM rsyncDaemon
-REM set ProjectDir=.\rsyncDaemon
-REM set OutDir=%ProjectDir%\bin
+echo #########################################################
+echo #                    Copy rsyncDaemon                   #
+echo #########################################################
+REM rsyncDaemon
+set ProjectDir=.\rsyncDaemon
+set OutDir=%ProjectDir%\bin
+xcopy /y %OutDir%\rsyncDaemon%postfix%.exe %dest%
+xcopy /y %OutDir%\rsyncDaemon%postfix%.pdb %dest%
 
 echo #########################################################
 echo #                    Copy UKEYMonitor                   #
@@ -147,7 +149,7 @@ for %%f in (RS_CertSafe* RSAsync*) do (
 		)
 	)
 	
-for %%f in (rsyncAgent* rsyncClient* UKEYMonitor*) do (
+for %%f in (rsyncAgent* rsyncClient* UKEYMonitor* rsyncDaemon*) do (
 		if "%%~xf"==".exe" (
 			echo %cd%\%%~f
 			del /q %%f

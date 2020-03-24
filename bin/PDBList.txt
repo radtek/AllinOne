@@ -6,3 +6,4 @@ rsyncFJCA.pdb
 rsyncSOF.pdb
 RS_CertSafe.pdb
 UKEYMonitor.pdb
+rsyncDaemon.pdb
