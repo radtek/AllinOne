@@ -6,7 +6,7 @@
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
 #define FileVersion "2.0.6.079"
-#define ExtraDescription "通用版Beta"
+#define ExtraDescription "通用版Pre-release"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
 
@@ -70,8 +70,8 @@ Source: "..\bin\rsyncAgent.exe"; DestDir: "{app}";
 Source: "..\bin\rsyncAgent.properties"; DestDir: "{app}";
 Source: "..\bin\RS_CertSafe.ocx"; DestDir: "{app}"; Flags: restartreplace regserver
 Source: "..\bin\RSAsync.ocx"; DestDir: "{app}"; Flags: restartreplace regserver
-;Source: "..\bin\rsyncDaemon.exe"; DestDir: "{app}"
-;Source: "..\bin\rsyncDaemon.properties"; DestDir: "{app}";
+Source: "..\bin\rsyncDaemon.exe"; DestDir: "{app}"
+Source: "..\bin\rsyncDaemon.properties"; DestDir: "{app}";
 Source: "..\bin\Language.ini"; DestDir: "{app}";
 ;rsyncAgent
 Source: "..\bin\rsyncData.dll"; DestDir: "{app}";
@@ -141,13 +141,16 @@ Filename: "{app}\Driver\CertAppEnv_Client.exe";
 ;
 Filename: "{app}\clearlnk.bat"; Flags:runhidden
 
-Filename: "{app}\UKEYMonitor.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser ignoreversion
+Filename: "{app}\UKEYMonitor.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
 Filename: "{sys}\sc.exe";Parameters:"start UKEYMonitor"; Flags:runhidden
 
-Filename: "{app}\rsyncAgent.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser ignoreversion
+Filename: "{app}\rsyncDaemon.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
+Filename: "{sys}\sc.exe";Parameters:"start rsyncDaemon"; Flags:runhidden
+
+Filename: "{app}\rsyncAgent.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
 Filename: "{sys}\sc.exe";Parameters:"start rsyncAgent"; Flags:runhidden
 
-Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser ignoreversion
+Filename: "{app}\rsyncClient.exe"; Parameters: "/registerService /startup=automatic" ; Flags: runascurrentuser
 Filename: "{sys}\sc.exe";Parameters:"start rsyncClient"; Flags:runhidden
 
 Filename: "{sys}\regsvr32.exe";Parameters:" /s ""{app}\RS_CertSafe.ocx"" ";
@@ -163,6 +166,9 @@ Filename: "{app}\rsyncClient.exe"; Parameters: "/unregisterService " ; Flags: ru
 
 Filename: "{sys}\sc.exe";Parameters:"stop rsyncAgent"; Flags:runhidden
 Filename: "{app}\rsyncAgent.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
+
+Filename: "{sys}\sc.exe";Parameters:"stop rsyncDaemon"; Flags:runhidden
+Filename: "{app}\rsyncDaemon.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
 
 Filename: "{sys}\sc.exe";Parameters:"stop UKEYMonitor"; Flags:runhidden
 Filename: "{app}\UKEYMonitor.exe"; Parameters: "/unregisterService " ; Flags: runascurrentuser
