@@ -55,6 +55,7 @@ Source: "..\bin\seals\SKF_USBKeyAPI_Epoint.dll"; DestDir: "{app}";
 Source: "..\bin\seals\StampManageSystem.dll"; DestDir: "{app}";
 Source: "..\bin\seals\XSCipherService.dll"; DestDir: "{app}";
 Source: "..\bin\seals\XSSealProviderLib.dll"; DestDir: "{app}";
+Source: "..\bin\seals\SEAL_BaiCheng.dll"; DestDir: "{app}";
 
 Source: "..\bin\extern\GTHelper\*"; DestDir: "{pf}\GTHelper\"; Flags: recursesubdirs;
 Source: "..\bin\extern\*.dll"; DestDir: "{app}";
