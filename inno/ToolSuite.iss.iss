@@ -5,7 +5,7 @@
 
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
-#define FileVersion "2.0.6.079"
+#define FileVersion "2.0.9"
 #define ExtraDescription "通用版Pre-release"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
