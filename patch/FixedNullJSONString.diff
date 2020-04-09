@@ -1,0 +1,60 @@
+diff --git a/Resource.h b/Resource.h
+index 33db415..1815a62 100644
+--- a/Resource.h
++++ b/Resource.h
+@@ -8,7 +8,7 @@
+ #define MAIN				2 
+ #define Major				0 
+ #define Minor				1 
+-#define FileIndex			39
++#define FileIndex			43
+ 
+ #define VTSFILEVERSION			MAIN,Major,Minor,FileIndex
+ #define VTSFILEVERSION_STR		STRINGIZE(MAIN) "." STRINGIZE(Major) "." STRINGIZE(Minor) "." STRINGIZE(FileIndex)
+diff --git a/Utility.cpp b/Utility.cpp
+index 33337bb..c75c25d 100644
+--- a/Utility.cpp
++++ b/Utility.cpp
+@@ -36,7 +36,7 @@ using namespace Reach::ActiveX;
+ 
+ 
+ Poco::Net::HTTPClientSession Utility::_session("127.0.0.1", 9900);
+-
++const std::string Utility::errorMsg = "{ \"code\":\"9083\", \"msg\" : \"result is empty!\" }";
+ Utility::Utility()
+ {
+ 	_session.reset();
+@@ -149,8 +149,8 @@ std::string Reach::ActiveX::Utility::UTF8EncodingGBK(const std::string & inEncod
+ 
+ std::string Reach::ActiveX::Utility::GBKJSONStreamUTF8(const std::string & inString)
+ {
+-	poco_assert(!inString.empty());
+-	if (inString.empty()) return "";
++	assert(!inString.empty());
++	if (inString.empty()) return errorMsg;
+ 
+ 	Parser sp;
+ 	Var R = sp.parse(inString);
+@@ -161,8 +161,8 @@ std::string Reach::ActiveX::Utility::GBKJSONStreamUTF8(const std::string & inStr
+ 
+ std::string Reach::ActiveX::Utility::UTF8JSONStreamGBK(const std::string & inString)
+ {
+-	poco_assert(!inString.empty());
+-	if (inString.empty()) return "";
++	assert(!inString.empty());
++	if (inString.empty()) return errorMsg;
+ 
+ 	Parser sp;
+ 	Var R = sp.parse(inString);
+diff --git a/Utility.h b/Utility.h
+index 8bdb97c..66a193e 100644
+--- a/Utility.h
++++ b/Utility.h
+@@ -25,6 +25,7 @@ namespace Reach {
+ 			Utility& operator = (const Utility&);
+ 
+ 			static Poco::Net::HTTPClientSession _session;
++			static const std::string errorMsg;
+ 		};
+ //
+ // bstr test macros
