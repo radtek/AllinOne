@@ -5,8 +5,8 @@
 
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
-#define FileVersion "2.0.9"
-#define ExtraDescription "通用版Pre-release"
+#define FileVersion "2.0.11"
+#define ExtraDescription "通用版Alpha"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
 
@@ -53,6 +53,7 @@ Source: "..\bin\seals\*"; DestDir: "{app}\seals\"; Flags: recursesubdirs;
 Source: "..\bin\seals\SKF_LG_NMG.dll"; DestDir: "{app}";
 Source: "..\bin\seals\SKF_USBKeyAPI_Epoint.dll"; DestDir: "{app}";
 Source: "..\bin\seals\StampManageSystem.dll"; DestDir: "{app}";
+Source: "..\bin\seals\SecSoapSoft.dll"; DestDir: "{app}";
 Source: "..\bin\seals\XSCipherService.dll"; DestDir: "{app}";
 Source: "..\bin\seals\XSSealProviderLib.dll"; DestDir: "{app}";
 Source: "..\bin\seals\SEAL_BaiCheng.dll"; DestDir: "{app}";

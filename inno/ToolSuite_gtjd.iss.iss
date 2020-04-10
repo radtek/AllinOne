@@ -5,8 +5,8 @@
 
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
-#define FileVersion "2.0.8"
-#define ExtraDescription "手机签定制Pre-release"
+#define FileVersion "2.0.12"
+#define ExtraDescription "手机签定制Alpha"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
 
@@ -43,6 +43,7 @@ Source: "..\bin\extern\CertTools\*"; DestDir: "{app}\CertTools\"; Flags: recurse
 Source: "..\bin\extern\redist\*"; DestDir: "{app}\redist\"; Flags: recursesubdirs;
 Source: "..\bin\extern\GTHelper\*"; DestDir: "{pf}\GTHelper\"; Flags: recursesubdirs;
 Source: "..\bin\seals\StampManageSystem.dll"; DestDir: "{app}";
+Source: "..\bin\seals\SecSoapSoft.dll"; DestDir: "{app}";
 Source: "..\bin\extern\*.dll"; DestDir: "{app}";
 Source: "..\bin\extern\clearlnk.bat"; DestDir: "{app}";
 
