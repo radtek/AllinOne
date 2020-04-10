@@ -97,6 +97,7 @@ set ProjectDir=.\rsyncDaemon
 set OutDir=%ProjectDir%\bin
 xcopy /y %OutDir%\rsyncDaemon%postfix%.exe %dest%
 xcopy /y %OutDir%\rsyncDaemon%postfix%.pdb %dest%
+xcopy /y %OutDir%\rsyncDaemon.properties %dest%
 
 echo #########################################################
 echo #                    Copy UKEYMonitor                   #
