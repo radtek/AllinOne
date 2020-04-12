@@ -6,7 +6,7 @@
 #define AppName "统一安全认证客户端"
 #define AppVersion "2.0"
 #define FileVersion "2.0.11"
-#define ExtraDescription "通用版Alpha"
+#define ExtraDescription "通用版Beta"
 #define CompanyName "福建瑞术信息科技有限公司"
 #define Copyright "Copyright (C) 2019-2020"
 
@@ -42,7 +42,7 @@ Source: "..\bin\SKF_Library\001\*"; DestDir: "{sys}";
 ;SoFProvider folder
 Source: "..\bin\SKF_Library\*"; DestDir: "{app}\SKF_Library\";  Flags: createallsubdirs recursesubdirs;
 ;BJCAClient
-Source: "..\bin\extern\BJCAClient\*"; DestDir: "{pf}\BJCAClient\"; Flags: recursesubdirs;
+;Source: "..\bin\extern\BJCAClient\*"; DestDir: "{pf}\BJCAClient\"; Flags: recursesubdirs;
 ;Driver
 Source: "..\bin\extern\Driver\*"; DestDir: "{app}\Driver\"; 
 ;Flags: recursesubdirs;
